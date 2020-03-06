@@ -1,13 +1,15 @@
 package demo.transform.json2xml;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import io.github.threetenjaxb.core.OffsetDateTimeXmlAdapter;
 import lombok.Data;
 
 @SpringBootApplication
@@ -109,6 +112,8 @@ public class JSON2XMLApplication {
 class Project {
 	String name;
 	String description;
-	ZonedDateTime dtAdded;
+	@XmlJavaTypeAdapter(OffsetDateTimeXmlAdapter.class)
+	@XmlSchemaType(name = "dateTime")
+	OffsetDateTime dtAdded;
 	
 }
