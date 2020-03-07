@@ -23,19 +23,18 @@ mvn spring-boot:run
 
 * test.xml
   ```xml
+  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <Project>
+      <name>hello</name>
+      <description>world</description>
+      <dtAdded>2020-03-05T15:00:00-05:00</dtAdded>
+  </Project>
   ```
 
 ```bash
-# test the sql
-curl -XPOST -H "Content-Type: application/json" -d @test.json http://localhost:8080/sql2csv/
+# convert json to xml
+curl -XPOST -F file=@test.json http://localhost:8080/xml
 
-# result
-NAME;DESCRIPTION
-sql-to-csv;app to convert sql output into csv format
-
+# convert xml to json
+curl -XPOST -F file=@test.xml http://localhost:8080/json
 ```
-
-### References
-* [test.json](test.json)
-* [projects records](src/main/resources/data.sql)
-
